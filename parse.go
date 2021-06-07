@@ -202,7 +202,7 @@ func (p *parser) parse() (*Node, error) {
 			// First, normalize the cache...
 			cached := strings.ToUpper(string(p.reader.Cache()))
 			nodeType := TextNode
-			if strings.HasPrefix(cached, "<![CDATA[") {
+			if strings.HasPrefix(cached, "![CDATA[") || strings.HasPrefix(cached, "<![CDATA[") {
 				nodeType = CharDataNode
 			}
 
@@ -307,7 +307,7 @@ type StreamParser struct {
 // streamElementFilter, if provided, cannot be successfully parsed and compiled
 // into a valid xpath query.
 func CreateStreamParser(r io.Reader, streamElementXPath string, streamElementFilter ...string) (*StreamParser, error) {
-    return CreateStreamParserWithOptions(r, ParserOptions{}, streamElementXPath, streamElementFilter...)
+	return CreateStreamParserWithOptions(r, ParserOptions{}, streamElementXPath, streamElementFilter...)
 }
 
 // CreateStreamParserWithOptions is like CreateStreamParser, but with custom options
